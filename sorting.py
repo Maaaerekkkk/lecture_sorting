@@ -23,15 +23,26 @@ def read_data(file_name):
             iter = iter + 1
     return data
 
-def selection_sort(zoznam):
+def selection_sort(zoznam, order):
     for i in range(len(zoznam)):
         idx = i
         for j in range(i + 1, (len(zoznam))):
-            if zoznam[j] < zoznam[idx]:
-                idx = j
+            if 'ascending' in order:
+                if zoznam[j] < zoznam[idx]:
+                    idx = j
+            elif 'descending' in order:
+                if zoznam[j] > zoznam[idx]:
+                    idx = j
+
         zoznam[i], zoznam[idx] = zoznam[idx], zoznam[i]
     return zoznam
 
+def bubble_sort(zoznam):
+    for i in range(len(zoznam) - 1):
+        for j in range(len(zoznam) - i - 1):
+            if zoznam[j] > zoznam[j + 1]:
+                zoznam[j], zoznam[j + 1] = zoznam[j + 1], zoznam[j]
+    return zoznam
 
 
 def main():
@@ -40,7 +51,7 @@ def main():
 
 if __name__ == '__main__':
     data = read_data('numbers.csv')
-    upratane = selection_sort(data['series_1'])
+    upratane = bubble_sort(data['series_1'])
     print(data)
     print(upratane)
     main()
